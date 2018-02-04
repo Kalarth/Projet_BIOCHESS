@@ -1,0 +1,3 @@
+class Lipide extends Pieces{
+
+}
