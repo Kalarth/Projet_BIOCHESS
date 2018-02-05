@@ -4,9 +4,11 @@ import java.io.*;
 
 public class Plateau{
   private Piece [][] plateau ;
+  private int nbcase;
 ///////////////////////////////Main/////////////////////////////////////
-  public void Plateau(int nbcase){
+  public void Plateau(int num){
     //int nbcase = 225 ;
+    nbcase=num;
     plateau = new Piece [nbcase][nbcase];
     for(int i = 0;i<nbcase; i++ ){
       for (int j = 0;j<nbcase ;j++ ) {*
@@ -14,14 +16,15 @@ public class Plateau{
       }
     }
   }
-
+/**
   AffichePlateau(plateau);
   System.out.println();
   Joueur [] tab = new Joueur[2];
   System.out.println(plateau.length);
+**/
 /////////////////////////////Affichage//////////////////////////////////
  public void AffichePlateau(){
-    for(int i = 0;i<225;i++){
+    for(int i = 0;i<nbcase;i++){
       if(i>2 && i%15 == 0 ){
         System.out.println();
         System.out.println("  ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___");
