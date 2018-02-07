@@ -1,14 +1,21 @@
+import java.util.*;
+import java.io.*;
+
 public class Enzyme extends Piece {
 
-  public Enzyme(int pos,String proprio,String couleur){
+  public Enzyme(int[] pos,String proprio,String couleur){
     super(pos,proprio,couleur);
-    mouvement=1;
+
+    setSymbol("E");
 
   }
 
-  public void move(String direction){
-    //TODO
+  public Enzyme(int posx,int posy,String proprio,String couleur){
+    super(posx,posy,proprio,couleur);
+
+    setSymbol("E");
 
   }
+
 
 }
