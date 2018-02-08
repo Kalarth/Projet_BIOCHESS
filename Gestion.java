@@ -1,17 +1,147 @@
 import java.util.*;
 import java.io.*;
 import java.nio.file.*;
+import java.lang.*;
 
 
 public class Gestion{
   public static void main(String[] args) {
     int nbligne=15;
+    int [] [] liste_M = new int [40] [2];
+
     Joueur[] joueur_tab=initJoueur();
     Color.setColors();
 
     Plateau plat=new Plateau(nbligne);
-    initialisation(joueur_tab,nbligne,plat);
+    initialisation(joueur_tab,nbligne,plat,liste_M);
     plat.AffichePlateau();
+    tours(plat,joueur_tab,liste_M);
+  }
+
+
+  public static void tours(Plateau plateau,Joueur[]tab, int [][] liste_M){
+    int nbtours = 0;
+    for(;;){
+      System.out.println("TOURS "+ nbtours);
+      tourMetabolite(plateau, liste_M);
+      tourJoueur(plateau,tab);
+      AffichageScore(tab);
+      nbtours = nbtours + 1;
+      //System.exit(0);
+    }
+  }
+
+  public static void tourMetabolite(Plateau plateau,int [][] liste_M){
+    System.out.println("Deplacement des metabolites");
+    for (int i=0;i<liste_M.length;i++){
+      int nb_bloque=0;
+      int [] coordonee = liste_M[i];
+      Piece courant=plateau.getPiece(coordonee[0],coordonee[1]);
+      courant.randmove();
+      int m=courant.getMovement();
+      int [] direction=checkmovement(plateau,m,coordonee[0],coordonee[1]);
+      boolean mouv_possible = false;
+      for (int j=0;j<direction.length ;j++ ) {
+        if (direction[j]==1) {
+          mouv_possible=true;
+          break;
+        }
+      }
+      if (mouv_possible==true) {
+        int x=0;
+        while (x==0) {
+          Random rand= new Random();
+          int test=rand.nextInt(direction.length);
+          if (direction[test]==1) {
+            if (test==0) { //VERS LE HAUT
+              courant.setNewpos(coordonee[0]-m,coordonee[1]);
+              plateau.placerPiece(courant);
+              plateau.deletePiece(coordonee[0],coordonee[1]);
+              liste_M[i][0]=liste_M[i][0]-m;
+            }
+            if (test==1) { //VERS LA DROITE
+              courant.setNewpos(coordonee[0],coordonee[1]+m);
+              plateau.placerPiece(courant);
+              plateau.deletePiece(coordonee[0],coordonee[1]);
+              liste_M[i][1]=liste_M[i][1]+m;
+            }
+            if (test==2) { // VERS LE BAS
+              courant.setNewpos(coordonee[0]+m,coordonee[1]);
+              plateau.placerPiece(courant);
+              plateau.deletePiece(coordonee[0],coordonee[1]);
+              liste_M[i][0]=liste_M[i][0]+m;
+            }
+            if (test==1) { //VERS LA GAUCHE
+              courant.setNewpos(coordonee[0],coordonee[1]-m);
+              plateau.placerPiece(courant);
+              plateau.deletePiece(coordonee[0],coordonee[1]);
+              liste_M[i][1]=liste_M[i][1]-m;
+            }
+          }
+        }
+      }
+      else{
+        nb_bloque++;
+      }
+      plateau.AffichePlateau();
+
+
+
+
+
+
+    }
+  }
+
+  public static int [] checkmovement(Plateau plateau,int mouvement,int x, int y){
+    int dir1=1;
+    int dir2=1;
+    int dir3=1;
+    int dir4=1;
+
+    for (int i=1;i==mouvement ;i++ ) {
+      if (plateau.getCase(x-i,y)!=" ") {
+        dir1=0;
+      }
+      if (plateau.getCase(x,y+i)!=" ") {
+        dir2=0;
+
+      }
+      if (plateau.getCase(x+i,y)!=" ") {
+        dir2=0;
+
+      }
+      if (plateau.getCase(x,y-i)!=" ") {
+        dir2=0;
+
+      }
+    }
+    int [] liste = {dir1,dir2,dir3,dir4};
+    return liste;
+
+
+  }
+
+  public static void tourJoueur(Plateau plateau,Joueur[] tab){
+    System.out.println(tab[0].getNomJoueur()+" joue");
+    VerifVictoire(tab,0);
+    //CleanTerminal();
+    plateau.AffichePlateau();
+    System.out.println(tab[1].getNomJoueur()+" joue");
+    VerifVictoire(tab,1);
+    //CleanTerminal();
+    plateau.AffichePlateau();
+  }
+
+  public static void AffichageScore(Joueur[] tab){
+    for( int i = 0 ; i < tab.length ; i++){
+      tab[i].AfficheScore();
+    }
+  }
+
+  public static void VerifVictoire(Joueur[]tab,int i){
+      tab[i].Victoire();
+
   }
 
   public static Joueur[] initJoueur(){
@@ -31,30 +161,22 @@ public class Gestion{
     return item;
   }
 
-  public static void initialisation(Joueur [] tab, int nbligne, Plateau plat){
-
+  public static void initialisation(Joueur [] tab, int nbligne, Plateau plat, int [] [] liste_M){
     for (int i=0;i<nbligne ;i++ ){
       for (int j=0;j<nbligne;j++){
         if (i==0) {
           if ((j%2)==0){
             Piece p=new Enzyme(i,j,tab[0].getNomJoueur(),"RESET");
             plat.placerPiece(p);
-
-
           }
         }
+
         if (i==14) {
           if ((j%2)==0) {
             Piece p=new Enzyme(i,j,tab[1].getNomJoueur(),"RESET");
             plat.placerPiece(p);
-
-
           }
         }
-
-
-
-
 
         if ((j>1 && j<14) && j%2==0 && i==1 ) {
           Piece p=new Lipide(i,j,tab[0].getNomJoueur(),"RESET");
@@ -87,7 +209,7 @@ public class Gestion{
         }
       }
     }
-    ajout_metabolites(plat);
+    ajout_metabolites(plat,liste_M,40);
     colore_enzyme(plat,0);
     colore_enzyme(plat,14);
   }
@@ -108,40 +230,21 @@ public class Gestion{
       }
     }
   }
-/**
-  public static int ajout_enzymes(Joueur [] tab,Plateau plat, int k,int x,int y, int numjoueur,int limitecouleur) {
-    //int limitecouleur=0;
-    k=k+0;
-    limitecouleur=limitecouleur+0;
-    String [] liste_couleur = {"RED","YELLOW","GREEN","BLUE"};
-    Piece p=new Enzyme(x,y,tab[numjoueur].getNomJoueur(),liste_couleur[k]);
-    plat.placerPiece(p);
-    limitecouleur++;
-    if (limitecouleur == 2) {
-      k++;
-      limitecouleur=0;
-    }
-    return k;
-  }
-  //int k=0;
-**/
 
-
-
-  public static void ajout_metabolites(Plateau plat){
+  public static void ajout_metabolites(Plateau plat,int [][] liste_M,int limit){
     int k=0;
-    int limit=40;
     int limitecouleur=0;
     String [] liste_couleur = {"RED","YELLOW","GREEN","BLUE"};
     Random rand=new Random();
     String couleur="";
-    while (limit != 0) {
+    for (int i=0;i<limit ;i++ ) {
       int randx=rand.nextInt(6)+4;
       int randy=rand.nextInt(15);
       if (plat.getCase(randx,randy) == " ") {
         Piece p= new Metabolite(randx,randy,liste_couleur[k]);
         plat.placerPiece(p);
-        limit--;
+        liste_M[i]=p.getPos();
+
         limitecouleur++;
         if (limitecouleur == 10) {
           k++;

@@ -7,5 +7,8 @@ public class Metabolite extends Piece {
     super(posx,posy);
     setSymbol("M");
     setColor(couleur);
+
   }
+
+
 }

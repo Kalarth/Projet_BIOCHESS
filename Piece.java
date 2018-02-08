@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Piece {
+public abstract class Piece {
   private int [] position;
   private String proprietaire;
   private int mouvement;
@@ -75,6 +75,10 @@ public class Piece {
     return Symbole;
   }
 
+  public int getMovement(){
+    return mouvement;
+  }
+
   public void setNewpos(int posx,int posy){
     position[0]=posx;
     position[1]=posy;
@@ -86,5 +90,16 @@ public class Piece {
 
   public void setColor(String co){
     couleur=co;
+  }
+
+  public void  setMove(int mov){
+    mouvement=mov;
+  }
+
+  public void randmove(){ //QUE POUR METABOLITES
+    Random rand = new Random();
+    int move=rand.nextInt(3)+1;
+    setMove(move);
+
   }
 }
