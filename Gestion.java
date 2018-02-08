@@ -33,6 +33,7 @@ public class Gestion{
 
   public static void tourMetabolite(Plateau plateau,int [][] liste_M){
     System.out.println("Deplacement des metabolites");
+    Random rand= new Random();
     for (int i=0;i<liste_M.length;i++){
       int nb_bloque=0;
       int [] coordonee = liste_M[i];
@@ -50,7 +51,7 @@ public class Gestion{
       if (mouv_possible==true) {
         int x=0;
         while (x==0) {
-          Random rand= new Random();
+
           int test=rand.nextInt(direction.length);
           if (direction[test]==1) {
             if (test==0) { //VERS LE HAUT
@@ -58,6 +59,7 @@ public class Gestion{
               plateau.placerPiece(courant);
               plateau.deletePiece(coordonee[0],coordonee[1]);
               liste_M[i][0]=liste_M[i][0]-m;
+
             }
             if (test==1) { //VERS LA DROITE
               courant.setNewpos(coordonee[0],coordonee[1]+m);
@@ -71,27 +73,46 @@ public class Gestion{
               plateau.deletePiece(coordonee[0],coordonee[1]);
               liste_M[i][0]=liste_M[i][0]+m;
             }
-            if (test==1) { //VERS LA GAUCHE
+            if (test==3) { //VERS LA GAUCHE
               courant.setNewpos(coordonee[0],coordonee[1]-m);
               plateau.placerPiece(courant);
               plateau.deletePiece(coordonee[0],coordonee[1]);
               liste_M[i][1]=liste_M[i][1]-m;
             }
+            plateau.AffichePlateau();
+            x=1;
           }
         }
       }
       else{
         nb_bloque++;
       }
-      plateau.AffichePlateau();
+    }
+    if (nb_bloque==liste_M.length) {
+      for (int l=0;l<liste_M.length;l++){
+        coordonee=liste_M[l];
+        Piece p=plat.getPiece(coordonee[0],coordonee[1]);
+        int [] listexy=casevide_aleatoire(plateau)
+        p.setNewpos(listexy[0],listexy[1]);
+        plateau.placerPiece(p);
+        plateau.deletePiece(coordonee[0],coordonee[1]);
+        liste_M[l]=listexy;
 
-
-
-
-
+      }
 
     }
   }
+
+  public static int [] casevide_aleatoire(Plateau plateau){
+    for(;;){
+      Random rand=new Random();
+      int randx=rand.nextInt(15);
+      int randy=rand.nextInt(15);
+      if (plateau.getCase(randx,randy) == " ") {
+        int [] liste={randx,randy};
+        return liste;
+      }
+    }
 
   public static int [] checkmovement(Plateau plateau,int mouvement,int x, int y){
     int dir1=1;
@@ -100,18 +121,18 @@ public class Gestion{
     int dir4=1;
 
     for (int i=1;i==mouvement ;i++ ) {
-      if (plateau.getCase(x-i,y)!=" ") {
+      if (plateau.getCase(x-i,y)!=" " || x-i<=0) {
         dir1=0;
       }
-      if (plateau.getCase(x,y+i)!=" ") {
+      if (plateau.getCase(x,y+i)!=" " || y+i>=plateau.getNb()) {
         dir2=0;
 
       }
-      if (plateau.getCase(x+i,y)!=" ") {
+      if (plateau.getCase(x+i,y)!=" " || x+i>=plateau.getNb()) {
         dir2=0;
 
       }
-      if (plateau.getCase(x,y-i)!=" ") {
+      if (plateau.getCase(x,y-i)!=" " || y+i>=plateau.getNb()) {
         dir2=0;
 
       }
