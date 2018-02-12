@@ -12,7 +12,7 @@ public class Plateau{
     plateau = new Piece [nbcase][nbcase];
     for(int i = 0;i<nbcase; i++ ){
       for (int j = 0;j<nbcase ;j++ ) {
-        plateau [i][j]= new Void(i,j);
+        plateau [i][j]= new Vide(i,j);
       }
     }
   }
@@ -27,7 +27,8 @@ public class Plateau{
    for (int k=0;k<nbcase ;k++ ) {
      System.out.println("  ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___");
      for (int l=0;l<nbcase ;l++ ) {
-       System.out.print(" | " + Color.colorTxt(plateau[k][l].getSymbole(),plateau[k][l].getCouleur()));
+       //System.out.print(" | " + Color.colorTxt(plateau[k][l].getSymbole(),plateau[k][l].getCouleur()));
+       System.out.print(" | " + plateau[k][l].getSymbole());
 
      }
      System.out.print(" | ");
@@ -54,13 +55,37 @@ public class Plateau{
   }
 
   public void placerPiece(Piece piece){
-    int[] pos=piece.getPos();
-    plateau[pos[0]][pos[1]]=piece;
+    /**
+    String proprietaire = piece.getProprio();
+    int [] pos=piece.getPos();
+    String Symbole=piece.getSymbole();
+    String couleur=piece.getCouleur();
+    if (Symbole=="M") {
+      plateau[pos[0]][pos[1]]=new Metabolite(pos,couleur);
+    }
+    if (Symbole=="E") {
+      plateau[pos[0]][pos[1]]=new Enzyme(pos,proprietaire,couleur);
 
+    }
+    if (Symbole=="L") {
+      plateau[pos[0]][pos[1]]=new Lipide(pos,proprietaire,couleur);
+    }
+    **/
+    int [] pos=piece.getPos();
+    plateau[pos[0]][pos[1]]=piece;
   }
 
   public void deletePiece(int posx,int posy){
+    plateau[posx][posy]=null;
     plateau[posx][posy]=new Vide(posx,posy);
+  }
+
+  public void mass_delete(){
+    for (int k=0;k<nbcase ;k++ ) {
+      for (int l=0;l<nbcase ;l++ ) {
+        plateau[k][l]=new Vide(k,l);
+      }
+    }
   }
 
   public Piece getPiece(int x, int y){
@@ -68,7 +93,12 @@ public class Plateau{
   }
 
   public String getCase(int x,int y){
-    return plateau[x][y].getSymbole();
+    if ((x>=0 &&  x<=(nbcase-1)) && (y>=0 && y<=(nbcase-1))) {
+      return plateau[x][y].getSymbole();
+    }
+    else{
+      return "out of range.";
+    }
   }
 
 }

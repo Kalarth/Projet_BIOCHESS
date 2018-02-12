@@ -2,13 +2,12 @@ import java.util.*;
 import java.io.*;
 
 public abstract class Piece {
-  protected int [] position;
-  protected String proprietaire;
-  protected int mouvement;
-  protected String couleur;
-  protected boolean living;
-  protected String Symbole;
-  /**
+  private int [] position;
+  private String proprietaire;
+  private int mouvement;
+  private String couleur;
+  private boolean living;
+  private String Symbole;
 
   public Piece(int [] pos){
     position=pos;
@@ -51,54 +50,56 @@ public abstract class Piece {
     Symbole=" ";
 
   }
-  **/
 
-  public void kill(){
+  public abstract void kill(){
     living=false;
   }
 
-  public int[] getPos(){
+  public abstract int[] getPos(){
     return position;
   }
 
-  public String getProprio(){
+  public abstract String getProprio(){
     return proprietaire;
   }
 
-  public String getCouleur(){
+  public abstract String getCouleur(){
     return couleur;
   }
 
-  public boolean isAlive(){
+  public abstract boolean isAlive(){
     return living;
   }
 
-
-  public  String getSymbole(){
+  public abstract String getSymbole(){
     return Symbole;
   }
 
-  public  int getMovement(){
+  public abstract int getMovement(){
     return mouvement;
   }
 
-  public  void setNewpos(int posx,int posy){
-    this.position[0]=posx;
-    this.position[1]=posy;
+  public abstract void setNewpos(int posx,int posy){
+    position[0]=posx;
+    position[1]=posy;
   }
 
-  public  void setSymbol(String s){
-    this.Symbole=s;
+  public abstract void setSymbol(String s){
+    Symbole=s;
   }
 
-  public  void setColor(String co){
-    this.couleur=co;
+  public abstract void setColor(String co){
+    couleur=co;
   }
 
-  public  void  setMove(int mov){
-    this.mouvement=mov;
+  public abstract void  setMove(int mov){
+    mouvement=mov;
   }
 
-  public abstract void randmove();
+  public abstract void randmove(){ //QUE POUR METABOLITES
+    Random rand = new Random();
+    int move=rand.nextInt(3)+1;
+    setMove(move);
 
+  }
 }

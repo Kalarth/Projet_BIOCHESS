@@ -36,7 +36,7 @@ public class Joueur{
 
   public void Victoire(){
     if(score == 25){
-      System.out.println("Felicitation ! " + nomJoueur + " a gagner");
+      System.out.println("Felicitation ! " + nomJoueur + " a gagné !");
       System.exit(0);
     }
   }

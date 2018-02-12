@@ -3,16 +3,26 @@ import java.io.*;
 
 public class Lipide extends Piece {
 
-  public Lipide(int [] pos,String proprio,String couleur){
-    super(pos,proprio,couleur);
-    setSymbol("L");
+  public Lipide(int [] pos,String proprio,String color){
+    this.position=pos;
+    this.proprietaire=proprio;
+    this.couleur=color;
+    this.living=true;
+    this.Symbole="L";
 
   }
 
-  public Lipide(int posx,int posy,String proprio,String couleur){
-    super(posx,posy,proprio,couleur);
+  public Lipide(int posx,int posy,String proprio,String color){
+    this.position=new int [2];
+    this.position[0]=posx;
+    this.position[1]=posy;
+    this.proprietaire=proprio;
+    this.couleur=color;
+    this.living=true;
+    this.Symbole="L";
+  }
 
-    setSymbol("L");
+  public void randmove(){
 
   }
 
