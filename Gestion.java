@@ -1,7 +1,6 @@
 import java.util.*;
 import java.io.*;
 import java.nio.file.*;
-import java.lang.*;
 
 
 public class Gestion{
@@ -41,61 +40,67 @@ public class Gestion{
     System.out.println("Deplacement des metabolites");
     Random rand= new Random();
     int nb_bloque=0;
+    int cpt=0;
     int [] coordonee = new int [2];
     Piece courant;
-    for (int i=0;i<liste_M.length;i++){
-      coordonee = liste_M[i];
-      courant=plateau.getPiece(coordonee[0],coordonee[1]);
+    for (int i=0;i<plateau.getNb();i++){
+      for (int k=0;k<plateau.getNb();k++){
+          coordonee[0]=i;
+          coordonee[1]=k;
+          courant=plateau.getPiece(coordonee[0],coordonee[1]);
+          if (courant.getSymbole()=="M") {
+            cpt++;
+            courant.randmove();
+            int m=courant.getMovement();
+            int [] direction=checkmovement(plateau,m,coordonee[0],coordonee[1]);
+            boolean mouv_possible = false;
+            for (int j=0;j<direction.length ;j++ ) {
+              if (direction[j]==1) {
+                mouv_possible=true;
+              }
+            }
+            if (mouv_possible==true) {
+              int x=0;
+              while (x==0) {
 
-      courant.randmove();
-      int m=courant.getMovement();
-      int [] direction=checkmovement(plateau,m,coordonee[0],coordonee[1]);
-      boolean mouv_possible = false;
-      for (int j=0;j<direction.length ;j++ ) {
-        if (direction[j]==1) {
-          mouv_possible=true;
+                int test=rand.nextInt(direction.length);
+                if (direction[test]==1) {
+                  if (test==0) { //VERS LE HAUT
+                    courant=plateau.getPiece(coordonee[0],coordonee[1]);
+                    bougerpiece(plateau,courant,(courant.getPos()[0]-m),courant.getPos()[1]);
+
+                  }
+                  if (test==1) { //VERS LA DROITE
+                    courant=plateau.getPiece(coordonee[0],coordonee[1]);
+                    bougerpiece(plateau,courant,courant.getPos()[0],(courant.getPos()[1]+m));
+
+                  }
+                  if (test==2) { // VERS LE BAS
+                    courant=plateau.getPiece(coordonee[0],coordonee[1]);
+                    bougerpiece(plateau,courant,(courant.getPos()[0]+m),courant.getPos()[1]);
+
+                  }
+                  if (test==3) { //VERS LA GAUCHE
+
+                    courant=plateau.getPiece(coordonee[0],coordonee[1]);
+                    bougerpiece(plateau,courant,(courant.getPos()[0]),courant.getPos()[1]-m);
+
+                  }
+                  x=1;
+                }
+              }
+            }
+            else{
+              nb_bloque++;
+            }
 
         }
-      }
-      if (mouv_possible==true) {
-        int x=0;
-        while (x==0) {
-
-          int test=rand.nextInt(direction.length);
-          if (direction[test]==1) {
-            if (test==0) { //VERS LE HAUT
-              courant=plateau.getPiece(coordonee[0],coordonee[1]);
-              bougerpiece(plateau,courant,(courant.getPos()[0]-m),courant.getPos()[1]);
-              liste_M[i]=courant.getPos();
-            }
-            if (test==1) { //VERS LA DROITE
-              courant=plateau.getPiece(coordonee[0],coordonee[1]);
-              bougerpiece(plateau,courant,courant.getPos()[0],(courant.getPos()[1]+m));
-              liste_M[i]=courant.getPos();
-            }
-            if (test==2) { // VERS LE BAS
-              courant=plateau.getPiece(coordonee[0],coordonee[1]);
-              bougerpiece(plateau,courant,(courant.getPos()[0]+m),courant.getPos()[1]);
-              liste_M[i]=courant.getPos();
-            }
-            if (test==3) { //VERS LA GAUCHE
-
-              courant=plateau.getPiece(coordonee[0],coordonee[1]);
-              bougerpiece(plateau,courant,(courant.getPos()[0]),courant.getPos()[1]-m);
-              liste_M[i]=courant.getPos();
-            }
-            x=1;
-          }
-        }
-      }
-      else{
-        nb_bloque++;
       }
     } // fin for
     plateau.AffichePlateau();
 
 
-    if (nb_bloque==liste_M.length) {
+    if (nb_bloque==cpt) {
       for (int l=0;l<liste_M.length;l++){
         coordonee=liste_M[l];
         Piece p=plateau.getPiece(coordonee[0],coordonee[1]);
