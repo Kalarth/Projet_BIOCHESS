@@ -29,5 +29,9 @@ public class Metabolite extends Piece {
 
   }
 
+  public void incremente_capa(){
+
+  }
+
 
 }

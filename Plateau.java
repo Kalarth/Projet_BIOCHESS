@@ -24,14 +24,18 @@ public class Plateau{
 **/
 /////////////////////////////Affichage//////////////////////////////////
  public void AffichePlateau(){
+   System.out.println("  _1_ _2_ _3_ _4_ _5_ _6_ _7_ _8_ _9_ 10_ 11_ 12_ 13_ 14_ 15_");
    for (int k=0;k<nbcase ;k++ ) {
+
      System.out.println("  ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___");
      for (int l=0;l<nbcase ;l++ ) {
-       //System.out.print(" | " + Color.colorTxt(plateau[k][l].getSymbole(),plateau[k][l].getCouleur()));
-       System.out.print(" | " + plateau[k][l].getSymbole());
+
+       System.out.print(" | " + Color.colorTxt(plateau[k][l].getSymbole(),plateau[k][l].getCouleur()));
+       //System.out.print(" | " + plateau[k][l].getSymbole());
 
      }
      System.out.print(" | ");
+     System.out.print((k+1));
      System.out.println();
      //System.out.println("  ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___");
 
@@ -84,6 +88,17 @@ public class Plateau{
     for (int k=0;k<nbcase ;k++ ) {
       for (int l=0;l<nbcase ;l++ ) {
         plateau[k][l]=new Vide(k,l);
+      }
+    }
+  }
+
+  public void mass_switch(String nom_joueur){
+    for (int k=0;k<nbcase ;k++ ) {
+      for (int l=0;l<nbcase ;l++ ) {
+        String p=plateau[k][l].getProprio();
+        if (p!=nom_joueur && p!="none"){
+          plateau[k][l].switchcolor();
+        }
       }
     }
   }

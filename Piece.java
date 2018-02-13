@@ -6,6 +6,7 @@ public abstract class Piece {
   protected String proprietaire;
   protected int mouvement;
   protected String couleur;
+  protected String couleur_alt;
   protected boolean living;
   protected String Symbole;
   /**
@@ -95,10 +96,18 @@ public abstract class Piece {
     this.couleur=co;
   }
 
+  public void switchcolor(){
+    String temp=this.couleur;
+    this.couleur=couleur_alt;
+    this.couleur_alt=temp;
+  }
+
   public  void  setMove(int mov){
     this.mouvement=mov;
   }
 
   public abstract void randmove();
+
+  public abstract void incremente_capa();
 
 }

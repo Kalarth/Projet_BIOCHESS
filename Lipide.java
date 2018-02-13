@@ -7,6 +7,7 @@ public class Lipide extends Piece {
     this.position=pos;
     this.proprietaire=proprio;
     this.couleur=color;
+    this.couleur_alt="RESET";
     this.living=true;
     this.Symbole="L";
 
@@ -18,11 +19,16 @@ public class Lipide extends Piece {
     this.position[1]=posy;
     this.proprietaire=proprio;
     this.couleur=color;
+    this.couleur_alt="RESET";
     this.living=true;
     this.Symbole="L";
   }
 
   public void randmove(){
+
+  }
+
+  public void incremente_capa(){
 
   }
 

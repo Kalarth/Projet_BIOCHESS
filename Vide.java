@@ -23,4 +23,8 @@ public class Vide extends Piece {
   public void randmove(){
 
   }
+
+  public void incremente_capa(){
+
+  }
 }

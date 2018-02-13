@@ -8,6 +8,7 @@ public class Enzyme extends Piece {
     this.position=pos;
     this.proprietaire=proprio;
     this.couleur=color;
+    this.couleur_alt="RESET";
     this.living=true;
     this.Symbole="E";
     capacite_capture=0;
@@ -20,6 +21,7 @@ public class Enzyme extends Piece {
     this.position[1]=posy;
     this.proprietaire=proprio;
     this.couleur=color;
+    this.couleur_alt="RESET";
     this.living=true;
     this.Symbole="E";
     capacite_capture=0;
@@ -32,5 +34,6 @@ public class Enzyme extends Piece {
   public void incremente_capa(){
     capacite_capture++;
   }
+
 
 }
