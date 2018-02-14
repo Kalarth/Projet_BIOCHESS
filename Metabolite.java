@@ -7,7 +7,7 @@ public class Metabolite extends Piece {
     this.position=pos;
     this.proprietaire="none";
     this.couleur=color;
-    this.living=true;
+    //this.living=true;
     this.Symbole="M";
 
   }
@@ -18,7 +18,7 @@ public class Metabolite extends Piece {
     this.position[1]=posy;
     this.proprietaire="none";
     this.couleur=color;
-    this.living=true;
+    //this.living=true;
     this.Symbole="M";
   }
 

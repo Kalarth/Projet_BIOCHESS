@@ -7,57 +7,13 @@ public abstract class Piece {
   protected int mouvement;
   protected String couleur;
   protected String couleur_alt;
-  protected boolean living;
+  //protected boolean living;
   protected String Symbole;
-  /**
-
-  public Piece(int [] pos){
-    position=pos;
-    proprietaire="none";
-    couleur="RESET";
-    mouvement=0;
-    living=true;
-    Symbole=" ";
-  }
-
-  public Piece(int posx,int posy){
-    position=new int [2];
-    position[0]=posx;
-    position[1]=posy;
-    proprietaire="none";
-    couleur="RESET";
-    mouvement=0;
-    living=true;
-    Symbole=" ";
-  }
-
-  public Piece(int [] pos,String proprio,String coul){
-    position=pos;
-    proprietaire=proprio; //Joueur1, Joueur2, none
-    couleur=coul;
-    mouvement=0;
-    living=true;
-    Symbole=" ";
-
-  }
-
-  public Piece(int posx,int posy,String proprio,String coul){
-    position=new int [2];
-    position[0]=posx;
-    position[1]=posy;
-    proprietaire=proprio;
-    couleur=coul;
-    mouvement=0;
-    living=true;
-    Symbole=" ";
-
-  }
-  **/
-
+  /*
   public void kill(){
     living=false;
   }
-
+*/
   public int[] getPos(){
     return position;
   }
@@ -69,12 +25,11 @@ public abstract class Piece {
   public String getCouleur(){
     return couleur;
   }
-
+/*
   public boolean isAlive(){
     return living;
   }
-
-
+*/
   public  String getSymbole(){
     return Symbole;
   }

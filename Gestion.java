@@ -31,7 +31,6 @@ public class Gestion{
       tourJoueur(plateau,tab,1);
 
       AffichageScore(tab);
-      nbtours = nbtours + 1;
       //System.exit(0);
     }
   }
@@ -101,7 +100,7 @@ public class Gestion{
 
 
     if (nb_bloque==cpt) {
-      for (int l=0;l<liste_M.length;l++){
+      for (int l=0;l<cpt;l++){
         coordonee=liste_M[l];
         Piece p=plateau.getPiece(coordonee[0],coordonee[1]);
         int [] listexy=casevide_aleatoire(plateau);

@@ -8,7 +8,7 @@ public class Lipide extends Piece {
     this.proprietaire=proprio;
     this.couleur=color;
     this.couleur_alt="RESET";
-    this.living=true;
+    //this.living=true;
     this.Symbole="L";
 
   }
@@ -20,7 +20,7 @@ public class Lipide extends Piece {
     this.proprietaire=proprio;
     this.couleur=color;
     this.couleur_alt="RESET";
-    this.living=true;
+    //this.living=true;
     this.Symbole="L";
   }
 

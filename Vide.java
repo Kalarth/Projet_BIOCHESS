@@ -6,7 +6,7 @@ public class Vide extends Piece {
     this.position=pos;
     this.proprietaire="none";
     this.couleur="RESET";
-    this.living=false;
+    //this.living=false;
     this.Symbole=" ";
   }
 
@@ -16,7 +16,7 @@ public class Vide extends Piece {
     this.position[1]=posy;
     this.proprietaire="none";
     this.couleur="RESET";
-    this.living=false;
+    //this.living=false;
     this.Symbole=" ";
   }
 

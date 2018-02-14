@@ -9,7 +9,7 @@ public class Enzyme extends Piece {
     this.proprietaire=proprio;
     this.couleur=color;
     this.couleur_alt="RESET";
-    this.living=true;
+    //this.living=true;
     this.Symbole="E";
     capacite_capture=0;
 
@@ -22,7 +22,7 @@ public class Enzyme extends Piece {
     this.proprietaire=proprio;
     this.couleur=color;
     this.couleur_alt="RESET";
-    this.living=true;
+    //this.living=true;
     this.Symbole="E";
     capacite_capture=0;
   }
